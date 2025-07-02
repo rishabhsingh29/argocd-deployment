@@ -2,12 +2,17 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx
+  namespace: nginx
   annotations:
-    kubernetes.io/ingress.class: alb  # if using AWS ALB ingress controller; change to 'nginx' if using NGINX ingress
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+
 spec:
   rules:
-  - host: nginx.example.com
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix
