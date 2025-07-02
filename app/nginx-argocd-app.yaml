@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/rishabhsingh29/eks-terraform.git'  
+    repoURL: 'https://github.com/rishabhsingh29/argocd-deployment.git'  
     targetRevision: main
     path: app 
   destination:
