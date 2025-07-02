@@ -1,15 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx
-  namespace: nginx
+  name: combined-ingress
+  namespace: nginx    # Or whichever namespace contains BOTH services; otherwise use fully qualified service names
   annotations:
+    kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/backend-protocol: HTTP
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
 spec:
-  ingressClassName: alb
   rules:
   - http:
       paths:
@@ -18,5 +18,12 @@ spec:
         backend:
           service:
             name: nginx
+            port:
+              number: 80
+      - path: /game
+        pathType: Prefix
+        backend:
+          service:
+            name: service-2048
             port:
               number: 80
