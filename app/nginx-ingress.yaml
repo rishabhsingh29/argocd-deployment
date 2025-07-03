@@ -20,10 +20,3 @@ spec:
             name: nginx
             port:
               number: 80
-      - path: /game
-        pathType: Prefix
-        backend:
-          service:
-            name: service-2048
-            port:
-              number: 80
