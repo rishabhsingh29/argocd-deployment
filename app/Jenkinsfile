@@ -4,9 +4,7 @@ pipeline {
   environment {
     AWS_REGION = "ap-south-1"
     ECR_REPO = "976283917955.dkr.ecr.ap-south-1.amazonaws.com/test-nginx"
-    ARGOCD_SERVER = "http://a5fa23d63610b466eb82c39ab7a2a87e-1894348306.ap-south-1.elb.amazonaws.com/applications"
-    ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret \
-  -o jsonpath="{.data.password}" | base64 -d)
+    ARGOCD_SERVER = "http://a5fa23d63610b466eb82c39ab7a2a87e-1894348306.ap-south-1.elb.amazonaws.com/applications"  // Don't include /applications here
   }
 
   stages {
@@ -55,7 +53,7 @@ pipeline {
         sh '''
           sed -i "s|image:.*|image: $ECR_REPO:latest|" deployment.yaml
           git add deployment.yaml
-          git commit -m "Update image to $ECR_REPO:latest"
+          git commit -m "Update image to $ECR_REPO:latest" || echo "No changes to commit"
           git push origin main
         '''
       }
