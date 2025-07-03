@@ -11,7 +11,7 @@ pipeline {
 
     stage('Checkout') {
       steps {
-        git credentialsId: 'rishabhsingh29', url: 'https://github.com/rishabhsingh29/argocd-deployment.git', branch: 'main'
+        git credentialsId: 'git', url: 'https://github.com/rishabhsingh29/argocd-deployment.git', branch: 'main'
       }
     }
 
